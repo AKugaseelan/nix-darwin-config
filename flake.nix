@@ -111,7 +111,6 @@
       users.users.akugaseelan.home = "/Users/akugaseelan";
       home-manager.backupFileExtension = "bak";
       nix.configureBuildUsers = true;
-      nix.useDaemon = true;
 
       system.defaults = {
 	dock = {
