@@ -22,19 +22,59 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim
+        [ 
+	  pkgs.ansible
+	  pkgs.bat
+	  pkgs.btop
+	  pkgs.fastfetch
+	  pkgs.fd
+	  pkgs.fzf
 	  pkgs.git
+	  pkgs.lazydocker
+	  pkgs.lazygit
+	  pkgs.mas
+	  pkgs.neovim
+	  pkgs.nodejs_24
+	  pkgs.openssl
         ];
+
+      fonts.packages = [
+	pkgs.nerd-fonts.fira-code
+      ];
 
       homebrew = {
 	enable = true;
 	casks = [
 	  "1Password"
+	  "adobe-creative-cloud"
+	  "Arc"
+	  "Autodesk-Fusion"
+	  "Bitwarden"
+	  "Discord"
+	  "Docker"
+	  "Kitty"
+	  "Microsoft-auto-update"
+	  "Microsoft-Teams"
+	  "Notion"
+	  "Obsidian"
+	  "private-internet-access"
+	  "raycast"
+	  "Steam"
+	  "Tailscale"
+	  "Wezterm"
 	];
+	masApps = {
+	  "Whatsapp" = 310633997;
+	};
+	onActivation.cleanup = "zap";
+	onActivation.autoUpdate = true;
+	onActivation.upgrade = true;
       };
 
       # Necessary for using determinate nix management
       nix.enable = false;
+      # Enable unfree applications
+      nixpkgs.config.allowUnfree = true;
 
       # Set default user
       system.primaryUser = "akugaseelan";
