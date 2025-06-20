@@ -14,9 +14,13 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, homebrew-core, homebrew-cask }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, homebrew-core, homebrew-cask, home-manager}:
   let
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -103,6 +107,12 @@
       # Unlock sudo commands with fingerprint
       security.pam.services.sudo_local.touchIdAuth = true;
 
+      # Home-manager
+      users.users.akugaseelan.home = "/Users/akugaseelan";
+      home-manager.backupFileExtension = "bak";
+      nix.configureBuildUsers = true;
+      nix.useDaemon = true;
+
       system.defaults = {
 	dock = {
 	  autohide = true;
@@ -140,6 +150,11 @@
 	    enableRosetta = true;
 	    user = "akugaseelan";
 	  };
+	}
+	home-manager.darwinModules.home-manager {
+	  home-manager.useGlobalPkgs = true;
+	  home-manager.useUserPackages = true;
+	  home-manager.users.akugaseelan = import ./home.nix;
 	}
       ];
     };
