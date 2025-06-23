@@ -18,6 +18,30 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Enable the WezTerm terminal emulator.
+  programs.wezterm.enable = true;
+
+  # Enable the .zrshrc file
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+
+
+
+home.file = {
+  ".config/" = {
+    source = ./dotfiles/.config;
+    recursive = true;
+  };
+};
 }
-
-

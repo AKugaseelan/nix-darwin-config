@@ -26,20 +26,24 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ 
-	  pkgs.ansible
-	  pkgs.bat
-	  pkgs.btop
-	  pkgs.fastfetch
-	  pkgs.fd
-	  pkgs.fzf
-	  pkgs.git
-	  pkgs.lazydocker
-	  pkgs.lazygit
-	  pkgs.mas
-	  pkgs.neovim
-	  pkgs.nodejs_24
-	  pkgs.openssl
+        [
+       	  pkgs.ansible
+       	  pkgs.bat
+       	  pkgs.btop
+       	  pkgs.fastfetch
+       	  pkgs.fd
+       	  pkgs.fzf
+       	  pkgs.git
+       	  pkgs.lazydocker
+       	  pkgs.lazygit
+       	  pkgs.mas
+       	  pkgs.neovim
+          pkgs.nixd
+       	  pkgs.nodejs_24
+       	  pkgs.openssl
+          pkgs.starship
+          pkgs.zsh-autosuggestions
+          pkgs.zsh-syntax-highlighting
         ];
 
       fonts.packages = [
@@ -66,6 +70,7 @@
 	  "Steam"
 	  "Tailscale"
 	  "Wezterm"
+	  "Zed"
 	];
 	masApps = {
 	  "Whatsapp" = 310633997;
@@ -110,7 +115,6 @@
       # Home-manager
       users.users.akugaseelan.home = "/Users/akugaseelan";
       home-manager.backupFileExtension = "bak";
-      nix.configureBuildUsers = true;
 
       system.defaults = {
 	dock = {
