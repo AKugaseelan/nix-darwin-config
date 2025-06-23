@@ -42,6 +42,7 @@
        	  pkgs.nodejs_24
        	  pkgs.openssl
           pkgs.starship
+          pkgs.zoxide
           pkgs.zsh-autosuggestions
           pkgs.zsh-syntax-highlighting
         ];
@@ -59,7 +60,7 @@
 	  "Autodesk-Fusion"
 	  "Bitwarden"
 	  "Discord"
-	  "Docker"
+	  "Docker-desktop"
 	  "Kitty"
 	  "Microsoft-auto-update"
 	  "Microsoft-Teams"
@@ -68,7 +69,7 @@
 	  "private-internet-access"
 	  "raycast"
 	  "Steam"
-	  "Tailscale"
+	  "Tailscale-app"
 	  "Wezterm"
 	  "Zed"
 	];

@@ -28,9 +28,17 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    shellAliases = {
+      drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
+    };
   };
 
   programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
   };
