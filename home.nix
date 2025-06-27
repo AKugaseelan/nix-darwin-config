@@ -30,7 +30,10 @@
     syntaxHighlighting.enable = true;
     shellAliases = {
       drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
+      cd = "z";
     };
+    initContent = ''fastfetch
+    '';
   };
 
   programs.starship = {
@@ -43,6 +46,10 @@
     enableZshIntegration = true;
   };
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
 
 

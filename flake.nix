@@ -68,6 +68,7 @@
 	  "Obsidian"
 	  "private-internet-access"
 	  "raycast"
+		"Stats"
 	  "Steam"
 	  "Tailscale-app"
 	  "Wezterm"
@@ -128,13 +129,39 @@
 	  mineffect = "genie";
 	  minimize-to-application = true;
 	  show-recents = false;
+		persistent-apps= [
+		  { app= "/Applications/Arc.app";}
+		  { app = "/Applications/Microsoft Teams.app";}
+		  { app= "/Applications/Obsidian.app";}
+			{ app = "/System/Applications/iPhone Mirroring.app";}
+		];
 	};
 	trackpad = {
 	  Clicking = true;
 	  TrackpadThreeFingerDrag = true;
+		TrackpadRightClick = true;
 	};
-	finder.AppleShowAllExtensions = true;
-	finder.FXPreferredViewStyle = "clmv";
+	finder = {
+	  AppleShowAllExtensions = true;
+		FXPreferredViewStyle = "clmv";
+		_FXShowPosixPathInTitle = true;
+		FXEnableExtensionChangeWarning = false;
+		ShowPathbar = true;
+		ShowStatusBar = true;
+	};
+	NSGlobalDomain = {
+	  ApplePressAndHoldEnabled = false;
+			InitialKeyRepeat = 15;
+			KeyRepeat = 3;
+
+			NSAutomaticCapitalizationEnabled = false;
+			NSAutomaticDashSubstitutionEnabled = false;
+			NSAutomaticPeriodSubstitutionEnabled = false;
+			NSAutomaticQuoteSubstitutionEnabled = false;
+			NSAutomaticSpellingCorrectionEnabled = false;
+			NSNavPanelExpandedStateForSaveMode = true;
+			NSNavPanelExpandedStateForSaveMode2 = true;
+	};
 	screencapture.location = "~/Pictures/screenshots";
 	screensaver.askForPasswordDelay = 10;
 	controlcenter.BatteryShowPercentage = true;
