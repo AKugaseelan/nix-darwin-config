@@ -32,7 +32,7 @@
       drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
       cd = "z";
     };
-    initContent = ''fastfetch
+    initContent = ''fastfetch -l small
     '';
   };
 
