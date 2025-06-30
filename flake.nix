@@ -63,6 +63,7 @@
 	  "Docker-desktop"
 	  "Kitty"
 	  "Microsoft-auto-update"
+		"Microsoft-Excel"
 	  "Microsoft-Teams"
 	  "Notion"
 	  "Obsidian"
