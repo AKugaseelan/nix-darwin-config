@@ -64,6 +64,7 @@
 	  "Kitty"
 	  "Microsoft-auto-update"
 		"Microsoft-Excel"
+		"Microsoft-Outlook"
 	  "Microsoft-Teams"
 	  "Notion"
 	  "Obsidian"
