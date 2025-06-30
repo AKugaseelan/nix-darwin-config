@@ -42,7 +42,6 @@
        	  pkgs.nodejs_24
        	  pkgs.openssl
           pkgs.starship
-          pkgs.steamcmd
           pkgs.zoxide
           pkgs.zsh-autosuggestions
           pkgs.zsh-syntax-highlighting
