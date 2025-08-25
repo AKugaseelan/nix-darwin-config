@@ -76,7 +76,9 @@
               "Microsoft-auto-update"
               "Microsoft-Excel"
               "Microsoft-Outlook"
+              "Microsoft-Powerpoint"
               "Microsoft-Teams"
+              "Microsoft-Word"
               "Notion"
               "Obsidian"
               "private-internet-access"
@@ -84,8 +86,11 @@
               "Stats"
               "Steam"
               "Tailscale-app"
+              "VLC"
               "Wezterm"
+              "Whisky"
               "Zed"
+              "Zen"
             ];
             masApps = {
               "Whatsapp" = 310633997;
