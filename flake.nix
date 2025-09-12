@@ -74,6 +74,7 @@
               "Kitty"
               "Microsoft-Auto-Update"
               "Microsoft-Excel"
+              "Microsoft-Outlook"
               "Microsoft-Teams"
               "Microsoft-Word"
               "Notion"
