@@ -49,9 +49,11 @@
             pkgs.lazygit
             pkgs.mas
             pkgs.neovim
+            pkgs.nil
             pkgs.nixd
             pkgs.nodejs_24
             pkgs.openssl
+            pkgs.powershell
             pkgs.starship
             pkgs.zoxide
             pkgs.zsh-autosuggestions
@@ -76,16 +78,19 @@
               "Microsoft-Auto-Update"
               "Microsoft-Excel"
               "Microsoft-Outlook"
+              "Microsoft-Powerpoint"
               "Microsoft-Teams"
               "Microsoft-Word"
               "Notion"
               "Obsidian"
+              "Orion"
               "private-internet-access"
               "raycast"
               "Snagit"
               "Stats"
               "Steam"
               "Tailscale-app"
+              "Visual-Studio-Code"
               "VLC"
               "Wezterm"
               "Whisky"
@@ -150,7 +155,7 @@
               minimize-to-application = true;
               show-recents = false;
               persistent-apps = [
-                { app = "/Applications/Zen.app"; }
+                { app = "/Applications/Orion.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
               ];
