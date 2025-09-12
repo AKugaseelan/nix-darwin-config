@@ -31,8 +31,10 @@
     shellAliases = {
       drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
       cd = "z";
+      cat = "bat";
     };
-    initContent = ''fastfetch -l small
+    initContent = ''
+      fastfetch -l small
     '';
   };
 
@@ -51,12 +53,26 @@
     enableZshIntegration = true;
   };
 
-
-
-home.file = {
-  ".config/" = {
-    source = ./dotfiles/.config;
-    recursive = true;
+  programs.ghostty = {
+    package = null;
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      theme = "Nord";
+      font-family = "FiraCode Nerd Font";
+      font-size = 12.0;
+      background-opacity = 0.75;
+      background-blur = 20;
+      window-height = 35;
+      window-width = 135;
+      macos-icon = "xray";
+    };
   };
-};
+
+  home.file = {
+    ".config/" = {
+      source = ./dotfiles/.config;
+      recursive = true;
+    };
+  };
 }
