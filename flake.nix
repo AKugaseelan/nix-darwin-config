@@ -71,6 +71,7 @@
               "Autodesk-Fusion"
               "Discord"
               "Docker-desktop"
+              "Ghostty"
               "Kitty"
               "Microsoft-Auto-Update"
               "Microsoft-Excel"
