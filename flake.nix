@@ -69,20 +69,18 @@
               "adobe-creative-cloud"
               "Arc"
               "Autodesk-Fusion"
-              "Bitwarden"
               "Discord"
               "Docker-desktop"
               "Kitty"
-              "Microsoft-auto-update"
+              "Microsoft-Auto-Update"
               "Microsoft-Excel"
-              "Microsoft-Outlook"
-              "Microsoft-Powerpoint"
               "Microsoft-Teams"
               "Microsoft-Word"
               "Notion"
               "Obsidian"
               "private-internet-access"
               "raycast"
+              "Snagit"
               "Stats"
               "Steam"
               "Tailscale-app"
@@ -94,7 +92,8 @@
             ];
             masApps = {
               "Whatsapp" = 310633997;
-              "Telegram" = 686449807;
+              "Telegram" = 747648890;
+              "Windows App" = 1295203466;
             };
             onActivation.cleanup = "zap";
             onActivation.autoUpdate = true;
@@ -149,8 +148,7 @@
               minimize-to-application = true;
               show-recents = false;
               persistent-apps = [
-                { app = "/Applications/Arc.app"; }
-                { app = "/Applications/Microsoft Teams.app"; }
+                { app = "/Applications/Zen.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
               ];
