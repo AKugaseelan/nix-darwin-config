@@ -55,6 +55,7 @@
             pkgs.openssl
             pkgs.powershell
             pkgs.starship
+            pkgs.tmux
             pkgs.zoxide
             pkgs.zsh-autosuggestions
             pkgs.zsh-syntax-highlighting
@@ -75,14 +76,18 @@
               "Docker-desktop"
               "Ghostty"
               "Kitty"
+              "Logitech-g-hub"
               "Microsoft-Auto-Update"
               "Microsoft-Excel"
               "Microsoft-Outlook"
               "Microsoft-Powerpoint"
               "Microsoft-Teams"
               "Microsoft-Word"
+              "Moonlight"
+              "Nextcloud"
               "Notion"
               "Obsidian"
+              "Openvpn-Connect"
               "Orion"
               "private-internet-access"
               "raycast"
@@ -158,6 +163,8 @@
                 { app = "/Applications/Orion.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
+                { app = "/Applications/Ghostty.app"; }
+                { app = "/Applications/Zed.app"; }
               ];
             };
             trackpad = {
