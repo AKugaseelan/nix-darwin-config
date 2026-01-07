@@ -70,8 +70,8 @@
             casks = [
               "1Password"
               "adobe-creative-cloud"
-              "Arc"
               "Autodesk-Fusion"
+              "ComfyUI"
               "Discord"
               "Docker-desktop"
               "Ghostty"
@@ -97,8 +97,8 @@
               "Tailscale-app"
               "Visual-Studio-Code"
               "VLC"
-              "Wezterm"
               "Whisky"
+              "Vivaldi"
               "Zed"
               "Zen"
             ];
@@ -160,7 +160,7 @@
               minimize-to-application = true;
               show-recents = false;
               persistent-apps = [
-                { app = "/Applications/Orion.app"; }
+                { app = "/Applications/Vivaldi.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
                 { app = "/Applications/Ghostty.app"; }
