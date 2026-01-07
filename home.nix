@@ -32,6 +32,7 @@
       drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
       cd = "z";
       cat = "bat";
+      lg = "lazygit";
     };
     initContent = ''
       fastfetch -l small
