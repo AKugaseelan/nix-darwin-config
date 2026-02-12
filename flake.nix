@@ -48,17 +48,13 @@
             pkgs.lazydocker
             pkgs.lazygit
             pkgs.mas
-            pkgs.neovim
             pkgs.nil
             pkgs.nixd
             pkgs.nodejs_24
             pkgs.openssl
             pkgs.powershell
             pkgs.starship
-            pkgs.tmux
             pkgs.zoxide
-            pkgs.zsh-autosuggestions
-            pkgs.zsh-syntax-highlighting
           ];
 
           fonts.packages = [
@@ -72,8 +68,10 @@
               "adobe-creative-cloud"
               "Autodesk-Fusion"
               "ComfyUI"
+              "Darktable"
               "Discord"
               "Docker-desktop"
+              "Element"
               "Ghostty"
               "Kitty"
               "Logitech-g-hub"
@@ -95,6 +93,7 @@
               "Stats"
               "Steam"
               "Tailscale-app"
+              "Threema@beta"
               "Visual-Studio-Code"
               "VLC"
               "Whisky"
@@ -102,11 +101,11 @@
               "Zed"
               "Zen"
             ];
-            masApps = {
-              "Whatsapp" = 310633997;
-              "Telegram" = 747648890;
-              "Windows App" = 1295203466;
-            };
+            #masApps = {
+            #  "Whatsapp" = 310633997;
+            #  "Telegram" = 747648890;
+            #  "Windows App" = 1295203466;
+            #};
             onActivation.cleanup = "zap";
             onActivation.autoUpdate = true;
             onActivation.upgrade = true;
