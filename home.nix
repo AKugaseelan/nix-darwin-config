@@ -183,32 +183,144 @@
     viAlias = true;
     vimAlias = true;
 
-    # Packages Neovim needs to function well (LSPs, compilers, etc.)
-    extraPackages = with pkgs; [
-      # Standard build tools for Treesitter/Mason
-      gcc
-      gnumake
-      unzip
-      wget
-
-      # Core utilities for plugins (Telescope, etc.)
-      ripgrep
-      fd
-      fzf
-      lazygit
-
-      # LSPs & Formatters
-      lua-language-server
-      nil # Nix LSP
-      pyright # Python
-      nodePackages.typescript-language-server
-      stylua # Lua formatter
-      shfmt # Shell formatter
-    ];
     plugins = with pkgs.vimPlugins; [
+      # Visuals & UI (Matching your repo)
+      nord-nvim
+      alpha-nvim
+      bufferline-nvim
+      nvim-colorizer-lua
+      lualine-nvim
+      nvim-web-devicons
+      nvim-tree-lua
+      which-key-nvim
+
+      # Editing & Git
+      comment-nvim
+      nvim-autopairs
+      nvim-surround
+      gitsigns-nvim
+
+      # Navigation
+      telescope-nvim
+      plenary-nvim
+
+      # PowerShell, Syntax & LSP Ecosystem
       nvim-treesitter.withAllGrammars
-      telescope-fzf-native-nvim
+      nvim-lspconfig
+      nvim-cmp
+      cmp-nvim-lsp
+      luasnip
     ];
+
+    extraLuaConfig = ''
+      ---------------------------------------------------------------------------
+      -- CORE OPTIONS (from your repo)
+      ---------------------------------------------------------------------------
+      vim.g.mapleader = " "
+      vim.opt.number = true
+      vim.opt.relativenumber = true
+      vim.opt.clipboard = "unnamedplus"
+      vim.opt.shiftwidth = 4
+      vim.opt.expandtab = true
+      vim.opt.termguicolors = true
+      vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true })
+
+      ---------------------------------------------------------------------------
+      -- PLUGIN CONFIGS (Exact logic from AKugaseelan/dotfiles)
+      ---------------------------------------------------------------------------
+
+      -- Alpha Dashboard (ASCII Art from your repo)
+      local alpha = require("alpha")
+      local dashboard = require("alpha.themes.dashboard")
+      dashboard.section.header.val = {
+          [[                               __                ]],
+          [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+          [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+          [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+          [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+          [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+      }
+      alpha.setup(dashboard.opts)
+
+      -- Lualine (Rounded style from your repo)
+      require('lualine').setup {
+        options = {
+          theme = 'nord',
+          section_separators = { left = '', right = '' },
+          component_separators = { left = '', right = '' }
+        }
+      }
+
+      -- Bufferline (Slant style from your repo)
+      require("bufferline").setup {
+        options = {
+          mode = "buffers",
+          separator_style = "slant",
+          always_show_bufferline = true,
+          offsets = {{ filetype = "NvimTree", text = "File Explorer", text_align = "left", separator = true }},
+        }
+      }
+
+      -- Which-Key (Updated to new spec to fix warnings)
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+        { "<leader>f", group = "File" },
+        { "<leader>p", group = "Project" },
+      })
+
+      -- Nvim-Tree & Telescope
+      require("nvim-tree").setup({})
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
+
+      -- Other Plugin Initializations
+      require('colorizer').setup()
+      require('Comment').setup()
+      require('gitsigns').setup()
+      require('nvim-autopairs').setup{}
+      require('nvim-surround').setup{}
+
+      ---------------------------------------------------------------------------
+      -- POWERSHELL & AUTOCOMPLETE (Fixed for LSP Error)
+      ---------------------------------------------------------------------------
+      local cmp = require('cmp')
+      cmp.setup({
+        snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
+        mapping = cmp.mapping.preset.insert({
+                -- Navigation
+                ['<C-j>'] = cmp.mapping.select_next_item(),
+                ['<C-k>'] = cmp.mapping.select_prev_item(),
+                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-e>'] = cmp.mapping.abort(),
+
+                -- TAB TO CONFIRM (Replaces Enter)
+                ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+
+                -- Allow Enter to just create a new line instead of picking a suggestion
+                ['<CR>'] = cmp.mapping({
+                  i = function(fallback)
+                    if cmp.visible() then
+                      fallback() -- Just insert the newline
+                    else
+                      fallback()
+                    end
+                  end,
+                }),
+              }),
+        sources = { { name = 'nvim_lsp' } }
+      })
+
+      -- FIXED: Explicitly define the command for PowerShell LSP
+      require('lspconfig').powershell_es.setup{
+        bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services", -- Standard fallback
+        shell = "pwsh", -- Ensures it uses the modern PowerShell binary
+      }
+
+      -- Final Visuals
+      vim.cmd[[colorscheme nord]]
+    '';
   };
 
   programs.tmux = {
@@ -283,6 +395,4 @@
     };
   };
 
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "/Users/akugaseelan/dev/dotfiles/.config/nvim";
 }
