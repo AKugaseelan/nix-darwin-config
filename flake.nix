@@ -53,7 +53,10 @@
             pkgs.nodejs_24
             pkgs.openssl
             pkgs.powershell
+            pkgs.rar
             pkgs.starship
+            pkgs.terraform
+            pkgs.terraform-providers.proxmox
             pkgs.zoxide
           ];
 

@@ -19,9 +19,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Enable the WezTerm terminal emulator.
-  programs.wezterm.enable = true;
-
   # Enable the .zrshrc file
   programs.zsh = {
     enable = true;
@@ -162,17 +159,35 @@
   };
 
   programs.ghostty = {
-    package = null;
     enable = true;
+    package = null;
     enableZshIntegration = true;
+
     settings = {
-      theme = "Nord";
+      # --- Visuals & Theme ---
+      theme = "Nord"; # Ghostty has built-in support for this
+      background-opacity = 0.76;
+      background-blur = 20;
+
+      # --- Typography ---
       font-family = "FiraCode Nerd Font";
       font-size = 12.0;
-      background-opacity = 0.75;
-      background-blur = 20;
+
+      # --- Window Style ---
+      window-padding-x = 2;
+      window-padding-y = 2;
+      window-decoration = false; # Similar to titlebar-only/none
+      confirm-close-surface = false;
       window-height = 35;
       window-width = 135;
+
+      # --- Cursor & Interaction ---
+      copy-on-select = true;
+      cursor-style = "block";
+      shell-integration-features = "no-cursor"; # Let nvim handle cursor shape
+
+      # --- Tab Bar ---
+      # Ghostty handles tabs differently, but we can match the placement
       macos-icon = "xray";
     };
   };
