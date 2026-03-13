@@ -148,6 +148,17 @@
     };
   };
 
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;  # replaces ls aliases automatically
+    icons = "auto";
+    git = true;
+    extraOptions = [
+      "--group-directories-first"
+      "--header"
+    ];
+  };
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
