@@ -40,6 +40,8 @@
             pkgs.ansible
             pkgs.bat
             pkgs.btop
+            pkgs.devcontainer
+            pkgs.eza
             pkgs.fastfetch
             pkgs.fd
             pkgs.nixfmt-rfc-style
@@ -71,6 +73,7 @@
               "adobe-creative-cloud"
               "Autodesk-Fusion"
               "ComfyUI"
+              "Claude"
               "Darktable"
               "Discord"
               "Docker-desktop"
@@ -96,11 +99,13 @@
               "Stats"
               "Steam"
               "Tailscale-app"
+              "Teamviewer"
               "Threema@beta"
               "Visual-Studio-Code"
               "VLC"
-              "Whisky"
               "Vivaldi"
+              "Whisky"
+              "Warp"
               "Zed"
               "Zen"
             ];
