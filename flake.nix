@@ -44,6 +44,7 @@
             pkgs.eza
             pkgs.fastfetch
             pkgs.fd
+            pkgs.kubernetes-helm
             pkgs.nixfmt-rfc-style
             pkgs.fzf
             pkgs.git
@@ -58,7 +59,7 @@
             pkgs.rar
             pkgs.starship
             pkgs.terraform
-            pkgs.terraform-providers.proxmox
+            pkgs.terraform-providers.telmate_proxmox
             pkgs.zoxide
           ];
 
@@ -72,14 +73,15 @@
               "1Password"
               "adobe-creative-cloud"
               "Autodesk-Fusion"
+              "balenaetcher"
               "ComfyUI"
               "Claude"
+              "DaisyDisk"
               "Darktable"
               "Discord"
               "Docker-desktop"
               "Element"
               "Ghostty"
-              "Kitty"
               "Logitech-g-hub"
               "Microsoft-Auto-Update"
               "Microsoft-Excel"
@@ -92,7 +94,7 @@
               "Notion"
               "Obsidian"
               "Openvpn-Connect"
-              "Orion"
+              "OrbStack"
               "private-internet-access"
               "raycast"
               "Snagit"
@@ -107,7 +109,6 @@
               "Whisky"
               "Warp"
               "Zed"
-              "Zen"
             ];
             #masApps = {
             #  "Whatsapp" = 310633997;
@@ -123,6 +124,9 @@
           nix.enable = false;
           # Enable unfree applications
           nixpkgs.config.allowUnfree = true;
+
+          # Automatically migrate homebrew installlation and packages, if already installed
+          nix-homebrew.autoMigrate = true;
 
           # Set default user
           system.primaryUser = "akugaseelan";
