@@ -208,6 +208,8 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    withRuby = false;
+    withPython3 = false;
 
     plugins = with pkgs.vimPlugins; [
       # Visuals & UI (Matching your repo)
@@ -238,7 +240,7 @@
       luasnip
     ];
 
-    extraLuaConfig = ''
+    initLua = ''
       ---------------------------------------------------------------------------
       -- CORE OPTIONS (from your repo)
       ---------------------------------------------------------------------------
