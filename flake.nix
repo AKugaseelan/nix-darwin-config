@@ -76,6 +76,7 @@
               "balenaetcher"
               "ComfyUI"
               "Claude"
+              "Claude-Code"
               "DaisyDisk"
               "Darktable"
               "Discord"
