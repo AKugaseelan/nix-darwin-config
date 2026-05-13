@@ -82,7 +82,6 @@
               "private-internet-access"
               "raycast"
               "Shottr"
-              "Snagit"
               "Stats"
               "Steam"
               "Tailscale-app"
