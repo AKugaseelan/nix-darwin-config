@@ -37,30 +37,13 @@
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
-            pkgs.ansible
-            pkgs.bat
-            pkgs.btop
             pkgs.devcontainer
-            pkgs.eza
             pkgs.fastfetch
             pkgs.fd
             pkgs.kubernetes-helm
-            pkgs.nixfmt-rfc-style
-            pkgs.fzf
-            pkgs.git
-            pkgs.lazydocker
-            pkgs.lazygit
-            pkgs.mas
-            pkgs.nil
-            pkgs.nixd
+            pkgs.nixfmt
             pkgs.nodejs_24
             pkgs.openssl
-            pkgs.powershell
-            pkgs.rar
-            pkgs.starship
-            pkgs.terraform
-            pkgs.terraform-providers.telmate_proxmox
-            pkgs.zoxide
           ];
 
           fonts.packages = [

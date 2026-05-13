@@ -6,6 +6,20 @@
   home.username = "akugaseelan";
   home.homeDirectory = "/Users/akugaseelan";
 
+  home.packages = with pkgs; [
+    ansible
+    btop
+    lazydocker
+    lazygit
+    mas
+    nil
+    nixd
+    powershell
+    rar
+    terraform
+    terraform-providers.telmate_proxmox
+  ];
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -148,9 +162,22 @@
     };
   };
 
+  programs.bat = {
+    enable = true;
+    config.theme = "Nord";
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "Athi Boog";
+      user.email = "athiraiyan.kugaseelan@outlook.com";
+    };
+  };
+
   programs.eza = {
     enable = true;
-    enableZshIntegration = true;  # replaces ls aliases automatically
+    enableZshIntegration = true; # replaces ls aliases automatically
     icons = "auto";
     git = true;
     extraOptions = [
@@ -416,11 +443,12 @@
     ];
   };
 
-  home.file = {
-    ".config/" = {
-      source = ./dotfiles/.config;
-      recursive = true;
-    };
-  };
+  home.file.".config/fastfetch/config.jsonc".source = ./dotfiles/.config/fastfetch/config.jsonc;
+  home.file.".config/btop/btop.conf".text = ''
+    color_theme = "nord"
+    theme_background = False
+    truecolor = True
+    vim_keys = True
+  '';
 
 }
