@@ -192,6 +192,16 @@
             screensaver.askForPasswordDelay = 10;
             controlcenter.BatteryShowPercentage = true;
           };
+
+          system.activationScripts.postActivation.text = ''
+            echo "Excluding Nix from Time Machine..."
+            tmutil addexclusion /nix 2>/dev/null || true
+            # Also exclude the Nix Store APFS volume if present
+            NIX_VOLUME=$(diskutil list | awk '/Nix Store/ {print $NF}')
+            if [ -n "$NIX_VOLUME" ]; then
+              tmutil addexclusion /Volumes/Nix\ Store 2>/dev/null || true
+            fi
+          '';
         };
     in
     {
