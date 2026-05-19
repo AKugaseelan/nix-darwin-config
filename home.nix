@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "akugaseelan";
-  home.homeDirectory = "/Users/akugaseelan";
+  home.username = "aboog";
+  home.homeDirectory = "/Users/aboog";
 
   home.packages = with pkgs; [
     ansible
@@ -283,7 +283,7 @@
       vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true })
 
       ---------------------------------------------------------------------------
-      -- PLUGIN CONFIGS (Exact logic from AKugaseelan/dotfiles)
+      -- PLUGIN CONFIGS (Exact logic from aboog/dotfiles)
       ---------------------------------------------------------------------------
 
       -- Alpha Dashboard (ASCII Art from your repo)

@@ -62,12 +62,13 @@
               "DaisyDisk"
               "Darktable"
               "Discord"
-              "Docker-desktop"
               "Element"
               "Ghostty"
+              "Intune-Company-Portal"
               "Kap"
               "Logitech-g-hub"
               "Microsoft-Auto-Update"
+              "Microsoft-Edge"
               "Microsoft-Excel"
               "Microsoft-Outlook"
               "Microsoft-Powerpoint"
@@ -77,6 +78,7 @@
               "Nextcloud"
               "Notion"
               "Obsidian"
+              "Onedrive"
               "Openvpn-Connect"
               "OrbStack"
               "private-internet-access"
@@ -113,7 +115,7 @@
           nix-homebrew.autoMigrate = true;
 
           # Set default user
-          system.primaryUser = "akugaseelan";
+          system.primaryUser = "aboog";
 
           # Enable Rosetta
           nix.extraOptions = ''
@@ -140,7 +142,7 @@
           security.pam.services.sudo_local.touchIdAuth = true;
 
           # Home-manager
-          users.users.akugaseelan.home = "/Users/akugaseelan";
+          users.users.aboog.home = "/Users/aboog";
           home-manager.backupFileExtension = "bak";
 
           system.defaults = {
@@ -215,14 +217,14 @@
             nix-homebrew = {
               enable = true;
               enableRosetta = true;
-              user = "akugaseelan";
+              user = "aboog";
             };
           }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.akugaseelan = import ./home.nix;
+            home-manager.users.aboog = import ./home.nix;
           }
         ];
       };
