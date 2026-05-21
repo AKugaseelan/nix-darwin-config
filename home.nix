@@ -179,6 +179,7 @@
       user.email = "athiraiyan.kugaseelan@outlook.com";
       gpg.format = "ssh";
       "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
     };
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR";
@@ -472,6 +473,10 @@
       };
     };
   };
+
+  home.file.".ssh/allowed_signers".text = ''
+    athiraiyan.kugaseelan@outlook.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR
+  '';
 
   home.file.".config/fastfetch/config.jsonc".source = ./dotfiles/.config/fastfetch/config.jsonc;
   home.file.".config/btop/btop.conf".text = ''
