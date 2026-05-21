@@ -43,7 +43,7 @@
     shellAliases = {
       drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
       nfu = "nix flake update";
-      nua = "nix flake update --flake ~/nix-darwin-config && sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro && git -C ~/nix-darwin-config add flake.lock && git -C ~/nix-darwin-config commit -m 'chore: ran nix flake update' && git -C ~/nix-darwin-config push";
+      nua = "nix flake update --flake ~/nix-darwin-config && sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro && git -C ~/nix-darwin-config add flake.lock && git -C ~/nix-darwin-config commit -m 'chore: Updated system fully using flake update and darwin rebuild && git -C ~/nix-darwin-config push";
       cd = "z";
       cat = "bat";
       lg = "lazygit";
