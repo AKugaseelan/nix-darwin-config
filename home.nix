@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     ansible
     btop
+    devcontainer
     lazydocker
     lazygit
     mas
@@ -49,9 +50,9 @@
       tamain = "tmux attach -t main";
       tnmain = "tmux new -s main";
       ic = "cd ~/Library/Mobile\\ Documents/com~apple~CloudDocs";
-      pwsh-shell = "docker compose -f ~/.config/pwsh-container/docker-compose.yml exec pwsh pwsh";
-      pwsh-start = "docker compose -f ~/.config/pwsh-container/docker-compose.yml up -d";
-      pwsh-stop = "docker compose -f ~/.config/pwsh-container/docker-compose.yml stop";
+      pwsh-shell = "docker compose -f ~/dev/orbstack/pwsh/compose.yml exec pwsh pwsh";
+      pwsh-start = "docker compose -f ~/dev/orbstack/pwsh/compose.yml up -d";
+      pwsh-stop = "docker compose -f ~/dev/orbstack/pwsh/compose.yml stop";
     };
     initContent = ''
       fastfetch -l small
