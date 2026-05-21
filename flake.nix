@@ -81,6 +81,7 @@
               "Onedrive"
               "Openvpn-Connect"
               "OrbStack"
+              "Parallels"
               "private-internet-access"
               "raycast"
               "Shottr"
@@ -145,6 +146,10 @@
           users.users.aboog.home = "/Users/aboog";
           home-manager.backupFileExtension = "bak";
 
+          networking.hostName = "Legion";
+          networking.computerName = "Legion";
+          networking.localHostName = "Legion";
+
           system.defaults = {
             dock = {
               autohide = true;
@@ -160,8 +165,9 @@
                 { app = "/Applications/Vivaldi.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
-                { app = "/Applications/Ghostty.app"; }
-                { app = "/Applications/Zed.app"; }
+                { app = "/Applications/Warp.app"; }
+                { app = "/Applications/Visual Studio Code.app"; }
+                { app = "/Applications/Microsoft Edge.app"; }
               ];
             };
             trackpad = {
