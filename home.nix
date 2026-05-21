@@ -54,6 +54,9 @@
       pwsh-start = "docker compose -f ~/dev/orbstack/pwsh/compose.yml up -d";
       pwsh-stop = "docker compose -f ~/dev/orbstack/pwsh/compose.yml stop";
     };
+    sessionVariables = {
+      SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    };
     initContent = ''
       fastfetch -l small
     '';
