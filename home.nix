@@ -172,12 +172,17 @@
     enable = true;
     config.theme = "Nord";
   };
-
   programs.git = {
     enable = true;
     settings = {
       user.name = "Athi Boog";
       user.email = "athiraiyan.kugaseelan@outlook.com";
+      gpg.format = "ssh";
+      "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+    };
+    signing = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR";
+      signByDefault = true;
     };
   };
 
@@ -447,6 +452,25 @@
         extraConfig = "set -g @continuum-restore 'on'";
       }
     ];
+  };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    includes = [ "~/.orbstack/ssh/config" ];
+    matchBlocks = {
+      "devops" = {
+        host = "ssh.dev.azure.com";
+        user = "git";
+        identityFile = "~/.ssh/id_rsa_devops.pub";
+      };
+      "default" = {
+        host = "*";
+        extraOptions = {
+          IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+        };
+      };
+    };
   };
 
   home.file.".config/fastfetch/config.jsonc".source = ./dotfiles/.config/fastfetch/config.jsonc;
