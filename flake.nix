@@ -63,6 +63,7 @@
               "Darktable"
               "Discord"
               "Element"
+              "Floorp"
               "Ghostty"
               "Intune-Company-Portal"
               "Kap"
