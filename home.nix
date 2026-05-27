@@ -192,12 +192,14 @@
 
   programs.eza = {
     enable = true;
-    enableZshIntegration = true; # replaces ls aliases automatically
+    enableZshIntegration = true;
     icons = "auto";
     git = true;
     extraOptions = [
       "--group-directories-first"
       "--header"
+      "--time-style=relative"
+      "--mounts"
     ];
   };
 
