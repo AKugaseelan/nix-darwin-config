@@ -33,6 +33,60 @@ My declarative macOS configuration using [nix-darwin](https://github.com/nix-dar
 - **zoxide** — `cd` replacement (`z`)
 - **fzf** — fuzzy finder with Zsh integration
 
+## Setup
+
+Prerequisites for a fresh Mac before cloning this repo.
+
+### 1. Install Xcode Command Line Tools
+
+Required by Homebrew and other build tooling:
+
+```sh
+xcode-select --install
+```
+
+### 2. Install Nix
+
+Use the [Determinate Nix Installer](https://determinate.systems/nix-installer/), which enables flakes out of the box:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
+
+> **Note:** Standard Nix also works, but requires manually enabling flakes in `/etc/nix/nix.conf`.
+
+
+
+### 3. Install Homebrew
+
+Homebrew is required for managing GUI apps and casks via `nix-homebrew`:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### 4. Install Rosetta 2
+
+Required for running x86 applications on Apple Silicon:
+
+```sh
+softwareupdate --install-rosetta --agree-to-license
+```
+
+### 5. Clone the Repository
+
+```sh
+git clone https://github.com/AKugaseelan/nix-darwin-config.git ~/nix-darwin-config
+```
+
+### 6. Apply the Configuration
+
+See [Usage](#usage) below.
+
+---
+
+> **GUI Apps:** Applications installed via `environment.systemPackages` in `flake.nix` will **not** appear in Spotlight, as it does not index Nix symlinks. GUI apps are therefore managed through Homebrew casks instead — only CLI tools are installed via the Nix repository.
+
 ## Usage
 
 Apply the configuration:
