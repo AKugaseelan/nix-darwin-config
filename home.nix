@@ -7,6 +7,7 @@
   home.homeDirectory = "/Users/aboog";
 
   home.packages = with pkgs; [
+    _1password-cli
     ansible
     btop
     devcontainer
