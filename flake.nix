@@ -63,6 +63,7 @@
               "Darktable"
               "Discord"
               "Element"
+              "Fido2-Manage"
               "Floorp"
               "Ghostty"
               "Intune-Company-Portal"
