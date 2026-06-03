@@ -462,23 +462,20 @@
   };
 
   programs.ssh = {
-    enable = true;
-    enableDefaultConfig = false;
-    includes = [ "~/.orbstack/ssh/config" ];
-    matchBlocks = {
-      "devops" = {
-        host = "ssh.dev.azure.com";
-        user = "git";
-        identityFile = "~/.ssh/id_rsa_devops.pub";
-      };
-      "default" = {
-        host = "*";
-        extraOptions = {
-          IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
-        };
-      };
+  enable = true;
+  enableDefaultConfig = false;
+  includes = [ "~/.orbstack/ssh/config" ];
+  settings = {
+    "ssh.dev.azure.com" = {
+      Host = "ssh.dev.azure.com";
+      User = "git";
+      IdentityFile = "~/.ssh/id_rsa_devops.pub";
+    };
+    "*" = {
+      IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
     };
   };
+};
 
   home.file.".ssh/allowed_signers".text = ''
     athiraiyan.kugaseelan@outlook.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR
