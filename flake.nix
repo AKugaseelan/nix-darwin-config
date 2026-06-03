@@ -164,7 +164,7 @@
               minimize-to-application = true;
               show-recents = false;
               persistent-apps = [
-                { app = "/Applications/Vivaldi.app"; }
+                { app = "/Applications/Floorp.app"; }
                 { app = "/Applications/Obsidian.app"; }
                 { app = "/System/Applications/iPhone Mirroring.app"; }
                 { app = "/Applications/Warp.app"; }
