@@ -16,10 +16,9 @@
     mas
     nil
     nixd
+    opentofu
     powershell
     rar
-    terraform
-    terraform-providers.telmate_proxmox
   ];
 
   # This value determines the Home Manager release that your
