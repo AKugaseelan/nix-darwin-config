@@ -180,6 +180,7 @@
     settings = {
       user.name = "Athi Boog";
       user.email = "athiraiyan.kugaseelan@outlook.com";
+      init.defaultBranch = "main";
       gpg.format = "ssh";
       "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
