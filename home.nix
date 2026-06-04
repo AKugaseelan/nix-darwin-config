@@ -4,7 +4,7 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "aboog";
-  home.homeDirectory = "/Users/aboog";
+  home.homeDirectory = "/home/aboog";
 
   home.packages = with pkgs; [
     _1password-cli
@@ -13,7 +13,6 @@
     devcontainer
     lazydocker
     lazygit
-    mas
     nil
     nixd
     opentofu
@@ -41,21 +40,14 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      drs = "sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro";
-      nfu = "nix flake update";
-      nua = "nix flake update --flake ~/nix-darwin-config && sudo darwin-rebuild switch --flake ~/nix-darwin-config#MacBook-Pro && git -C ~/nix-darwin-config add flake.lock && git -C ~/nix-darwin-config commit -m 'chore: Updated system fully using flake update and darwin rebuild && git -C ~/nix-darwin-config push";
       cd = "z";
       cat = "bat";
       lg = "lazygit";
       tamain = "tmux attach -t main";
       tnmain = "tmux new -s main";
-      ic = "cd ~/Library/Mobile\\ Documents/com~apple~CloudDocs";
-      pwsh-shell = "docker compose -f ~/dev/orbstack/pwsh/compose.yml exec pwsh pwsh";
-      pwsh-start = "docker compose -f ~/dev/orbstack/pwsh/compose.yml up -d";
-      pwsh-stop = "docker compose -f ~/dev/orbstack/pwsh/compose.yml stop";
     };
     sessionVariables = {
-      SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+      SSH_AUTH_SOCK = "${builtins.getEnv "HOME"}/.ssh/ssh_auth_sock";
     };
     initContent = ''
       fastfetch -l small
@@ -182,12 +174,13 @@
       user.email = "athiraiyan.kugaseelan@outlook.com";
       init.defaultBranch = "main";
       gpg.format = "ssh";
-      "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      "gpg \"ssh\"".program = "/opt/1Password/op-ssh-sign";
       "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
     };
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR";
-      signByDefault = true;
+      # REMOVE these too:
+      # key = "ssh-ed25519 ...";
+      # signByDefault = true;
     };
   };
 
@@ -216,7 +209,6 @@
 
   programs.ghostty = {
     enable = true;
-    package = null;
     enableZshIntegration = true;
 
     settings = {
@@ -241,10 +233,6 @@
       copy-on-select = true;
       cursor-style = "block";
       shell-integration-features = "no-cursor"; # Let nvim handle cursor shape
-
-      # --- Tab Bar ---
-      # Ghostty handles tabs differently, but we can match the placement
-      macos-icon = "xray";
     };
   };
 
@@ -464,15 +452,14 @@
   programs.ssh = {
   enable = true;
   enableDefaultConfig = false;
-  includes = [ "~/.orbstack/ssh/config" ];
   settings = {
+     "*" = {
+      IdentityAgent = "~/.1password/agent.sock";
+    };
     "ssh.dev.azure.com" = {
       Host = "ssh.dev.azure.com";
       User = "git";
       IdentityFile = "~/.ssh/id_rsa_devops.pub";
-    };
-    "*" = {
-      IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
     };
   };
 };

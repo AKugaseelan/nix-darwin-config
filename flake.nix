@@ -1,239 +1,27 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Athi's CachyOS home-manager config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nix-darwin,
-      nixpkgs,
-      nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-      home-manager,
-    }:
+  outputs = { self, nixpkgs, home-manager }:
     let
-      configuration =
-        { pkgs, ... }:
-        {
-          # List packages installed in system profile. To search by name, run:
-          # $ nix-env -qaP | grep wget
-          environment.systemPackages = [
-            pkgs.devcontainer
-            pkgs.fastfetch
-            pkgs.fd
-            pkgs.kubernetes-helm
-            pkgs.nixfmt
-            pkgs.nodejs_24
-            pkgs.openssl
-          ];
-
-          fonts.packages = [
-            pkgs.nerd-fonts.fira-code
-          ];
-
-          homebrew = {
-            enable = true;
-            casks = [
-              "1Password"
-              "adobe-creative-cloud"
-              "Autodesk-Fusion"
-              "ComfyUI"
-              "Claude"
-              "Claude-Code"
-              "DaisyDisk"
-              "Darktable"
-              "Discord"
-              "Element"
-              "Fido2-Manage"
-              "Floorp"
-              "Ghostty"
-              "Intune-Company-Portal"
-              "Kap"
-              "Logitech-g-hub"
-              "Microsoft-Auto-Update"
-              "Microsoft-Edge"
-              "Microsoft-Excel"
-              "Microsoft-Outlook"
-              "Microsoft-Powerpoint"
-              "Microsoft-Teams"
-              "Microsoft-Word"
-              "Moonlight"
-              "Nextcloud"
-              "Notion"
-              "Obsidian"
-              "Onedrive"
-              "Openvpn-Connect"
-              "OrbStack"
-              "Parallels"
-              "private-internet-access"
-              "raycast"
-              "Shottr"
-              "Stats"
-              "Steam"
-              "Tailscale-app"
-              "Teamviewer"
-              "Threema@beta"
-              "Visual-Studio-Code"
-              "VLC"
-              "Vivaldi"
-              "Whisky"
-              "Warp"
-              "Zed"
-            ];
-            #masApps = {
-            #  "Whatsapp" = 310633997;
-            #  "Telegram" = 747648890;
-            #  "Windows App" = 1295203466;
-            #};
-            onActivation.cleanup = "zap";
-            onActivation.autoUpdate = true;
-            onActivation.upgrade = true;
-          };
-
-          # Necessary for using determinate nix management
-          nix.enable = false;
-          # Enable unfree applications
-          nixpkgs.config.allowUnfree = true;
-
-          # Automatically migrate homebrew installlation and packages, if already installed
-          nix-homebrew.autoMigrate = true;
-
-          # Set default user
-          system.primaryUser = "aboog";
-
-          # Enable Rosetta
-          nix.extraOptions = ''
-            	extra-platforms = x86_64-darwin aarch64-darwin
-          '';
-
-          # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
-
-          # Enable alternative shell support in nix-darwin.
-          # programs.fish.enable = true;
-
-          # Set Git commit hash for darwin-version.
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 6;
-
-          # The platform the configuration will be used on.
-          nixpkgs.hostPlatform = "aarch64-darwin";
-
-          # Unlock sudo commands with fingerprint
-          security.pam.services.sudo_local.touchIdAuth = true;
-
-          # Home-manager
-          users.users.aboog.home = "/Users/aboog";
-          home-manager.backupFileExtension = "bak";
-
-          networking.hostName = "Legion";
-          networking.computerName = "Legion";
-          networking.localHostName = "Legion";
-
-          system.defaults = {
-            dock = {
-              autohide = true;
-              mru-spaces = false;
-              orientation = "left";
-              tilesize = 16;
-              largesize = 64;
-              magnification = true;
-              mineffect = "genie";
-              minimize-to-application = true;
-              show-recents = false;
-              persistent-apps = [
-                { app = "/Applications/Floorp.app"; }
-                { app = "/Applications/Obsidian.app"; }
-                { app = "/System/Applications/iPhone Mirroring.app"; }
-                { app = "/Applications/Warp.app"; }
-                { app = "/Applications/Visual Studio Code.app"; }
-                { app = "/Applications/Microsoft Edge.app"; }
-              ];
-            };
-            trackpad = {
-              Clicking = true;
-              TrackpadThreeFingerDrag = true;
-              TrackpadRightClick = true;
-            };
-            finder = {
-              AppleShowAllExtensions = true;
-              FXPreferredViewStyle = "clmv";
-              _FXShowPosixPathInTitle = true;
-              FXEnableExtensionChangeWarning = false;
-              ShowPathbar = true;
-              ShowStatusBar = true;
-            };
-            NSGlobalDomain = {
-              ApplePressAndHoldEnabled = false;
-              InitialKeyRepeat = 15;
-              KeyRepeat = 3;
-
-              NSAutomaticCapitalizationEnabled = false;
-              NSAutomaticDashSubstitutionEnabled = false;
-              NSAutomaticPeriodSubstitutionEnabled = false;
-              NSAutomaticQuoteSubstitutionEnabled = false;
-              NSAutomaticSpellingCorrectionEnabled = false;
-              NSNavPanelExpandedStateForSaveMode = true;
-              NSNavPanelExpandedStateForSaveMode2 = true;
-            };
-            screencapture.location = "~/Pictures/screenshots";
-            screensaver.askForPasswordDelay = 10;
-            controlcenter.BatteryShowPercentage = true;
-          };
-
-          system.activationScripts.postActivation.text = ''
-            echo "Excluding Nix from Time Machine..."
-            tmutil addexclusion /nix 2>/dev/null || true
-            # Also exclude the Nix Store APFS volume if present
-            NIX_VOLUME=$(diskutil list | awk '/Nix Store/ {print $NF}')
-            if [ -n "$NIX_VOLUME" ]; then
-              tmutil addexclusion /Volumes/Nix\ Store 2>/dev/null || true
-            fi
-          '';
-        };
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#simple
-      darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      homeConfigurations."aboog" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
         modules = [
-          configuration
-          nix-homebrew.darwinModules.nix-homebrew
           {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              user = "aboog";
-            };
+            nixpkgs.config.allowUnfree = true;
           }
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.aboog = import ./home.nix;
-          }
+          ./home.nix
         ];
       };
     };
