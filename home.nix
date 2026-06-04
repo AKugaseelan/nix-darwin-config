@@ -176,11 +176,11 @@
       gpg.format = "ssh";
       "gpg \"ssh\"".program = "/opt/1Password/op-ssh-sign";
       "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
+      commit.gpgsign = true;
     };
     signing = {
-      # REMOVE these too:
-      # key = "ssh-ed25519 ...";
-      # signByDefault = true;
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR";
+      signByDefault = true;
     };
   };
 
