@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     _1password-cli
     ansible
+    azure-cli
     btop
     devcontainer
     lazydocker
@@ -177,6 +178,7 @@
   };
   programs.git = {
     enable = true;
+    ignores = [ ".DS_Store" ];
     settings = {
       user.name = "Athi Boog";
       user.email = "athiraiyan.kugaseelan@outlook.com";
