@@ -44,6 +44,8 @@
             pkgs.nixfmt
             pkgs.nodejs_24
             pkgs.openssl
+            pkgs.ripgrep
+            pkgs.yazi
           ];
 
           fonts.packages = [
@@ -55,17 +57,16 @@
             casks = [
               "1Password"
               "adobe-creative-cloud"
-              "Autodesk-Fusion"
               "Backdrop"
               "Comfy"
               "Claude"
               "DaisyDisk"
               "Darktable"
               "Discord"
-              "Element"
               "Fido2-Manage"
               "Floorp"
               "Ghostty"
+              "Insomnia"
               "Intune-Company-Portal"
               "Kap"
               "Logitech-g-hub"
@@ -76,29 +77,25 @@
               "Microsoft-Powerpoint"
               "Microsoft-Teams"
               "Microsoft-Word"
-              "Moonlight"
               "Nextcloud"
               "Notion"
               "Obsidian"
               "Onedrive"
               "Openvpn-Connect"
               "OrbStack"
-              "Parallels"
               "private-internet-access"
               "raycast"
               "Shottr"
               "Stats"
               "Steam"
+              "Syncthing-app"
               "Tailscale-app"
               "Thonny"
               "Teamviewer"
               "Threema@beta"
               "Visual-Studio-Code"
               "VLC"
-              "Vivaldi"
-              "Whisky"
               "Warp"
-              "Zed"
             ];
             #masApps = {
             #  "Whatsapp" = 310633997;

@@ -9,9 +9,11 @@
   home.packages = with pkgs; [
     _1password-cli
     ansible
+    ansible-lint
     azure-cli
     btop
     devcontainer
+    kubeseal
     lazydocker
     lazygit
     mas
