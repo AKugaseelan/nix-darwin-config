@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -71,18 +71,15 @@
     settings = {
       add_newline = true;
 
-      # Fixed: Uses a literal newline to solve the 'expected escaped_char' error.
-      # This recreates your two-line layout from the initial config.
       format = ''
-        $nix_shell$fill$git_metrics
+        $nix_shell$fill$python$nodejs$rust$golang$docker_context$cmd_duration$git_metrics
         $directory$git_branch$git_status$username$character '';
 
       fill = {
         symbol = " ";
-        style = "none"; # Ensures transparency in tmux
+        style = "none";
       };
 
-      # Core symbols from your initial config
       character = {
         success_symbol = "[◎](bold italic bright-yellow)";
         error_symbol = "[○](italic purple)";
@@ -93,11 +90,42 @@
         home_symbol = "⌂";
         style = "italic blue";
         truncation_length = 2;
+        truncation_symbol = "…/";
+        read_only = " ◈";
+        read_only_style = "italic dimmed red";
       };
 
       git_branch = {
         symbol = "[△](bold italic bright-blue)";
         style = "italic bright-blue";
+      };
+
+      git_status = {
+        style = "italic dimmed yellow";
+        format = "[$all_status$ahead_behind]($style) ";
+        conflicted = "◇";
+        ahead = "▲\${count}";
+        behind = "▽\${count}";
+        diverged = "◆";
+        untracked = "·\${count}";
+        stashed = "◱";
+        modified = "△\${count}";
+        staged = "▲\${count}";
+        renamed = "▷\${count}";
+        deleted = "▼\${count}";
+      };
+
+      git_metrics = {
+        disabled = false;
+        added_style = "italic dimmed green";
+        deleted_style = "italic dimmed red";
+        format = "[+$added]($added_style)[/-$deleted]($deleted_style) ";
+      };
+
+      cmd_duration = {
+        min_time = 2000;
+        style = "italic dimmed yellow";
+        format = "[◷ $duration]($style) ";
       };
 
       nix_shell = {
@@ -114,61 +142,62 @@
         show_always = false;
       };
 
-      # Integrated Nerd Font icons from your conversion request
-      aws.symbol = " ";
-      buf.symbol = " ";
-      bun.symbol = " ";
-      c.symbol = " ";
-      cpp.symbol = " ";
-      cmake.symbol = " ";
-      conda.symbol = " ";
-      crystal.symbol = " ";
-      dart.symbol = " ";
-      deno.symbol = " ";
-      docker_context.symbol = " ";
-      elixir.symbol = " ";
-      elm.symbol = " ";
-      golang.symbol = " ";
-      gradle.symbol = " ";
-      haskell.symbol = " ";
-      java.symbol = " ";
-      julia.symbol = " ";
-      kotlin.symbol = " ";
-      lua.symbol = " ";
-      nodejs.symbol = " ";
-      python.symbol = " ";
-      ruby.symbol = " ";
+      python.symbol = " ";
+      nodejs.symbol = " ";
       rust.symbol = "󱘗 ";
-      scala.symbol = " ";
-      swift.symbol = " ";
-      zig.symbol = " ";
+      golang.symbol = " ";
+      docker_context.symbol = " ";
 
-      # OS symbols list for the $os module
+      # Remaining symbols kept for modules not currently in $format
+      aws.symbol = " ";
+      buf.symbol = " ";
+      bun.symbol = " ";
+      c.symbol = " ";
+      cpp.symbol = " ";
+      cmake.symbol = " ";
+      conda.symbol = " ";
+      crystal.symbol = " ";
+      dart.symbol = " ";
+      deno.symbol = " ";
+      elixir.symbol = " ";
+      elm.symbol = " ";
+      gradle.symbol = " ";
+      haskell.symbol = " ";
+      java.symbol = " ";
+      julia.symbol = " ";
+      kotlin.symbol = " ";
+      lua.symbol = " ";
+      ruby.symbol = " ";
+      scala.symbol = " ";
+      swift.symbol = " ";
+      zig.symbol = " ";
+
       os.symbols = {
-        Alpaquita = " ";
-        Alpine = " ";
-        AlmaLinux = " ";
-        Amazon = " ";
-        Android = " ";
-        Arch = " ";
-        CentOS = " ";
-        Debian = " ";
-        Fedora = " ";
-        FreeBSD = " ";
-        Gentoo = " ";
+        # (unchanged — add $os to format if you want these)
+        Alpaquita = " ";
+        Alpine = " ";
+        AlmaLinux = " ";
+        Amazon = " ";
+        Android = " ";
+        Arch = " ";
+        CentOS = " ";
+        Debian = " ";
+        Fedora = " ";
+        FreeBSD = " ";
+        Gentoo = " ";
         Ios = "󰀷 ";
-        Kali = " ";
-        Linux = " ";
-        Macos = " ";
-        Manjaro = " ";
-        Mint = " ";
-        NixOS = " ";
+        Kali = " ";
+        Linux = " ";
+        Macos = " ";
+        Manjaro = " ";
+        Mint = " ";
+        NixOS = " ";
         OpenBSD = "󰈺 ";
-        openSUSE = " ";
-        Pop = " ";
-        Raspbian = " ";
-        Redhat = " ";
-        Ubuntu = " ";
+        openSUSE = " ";
+        Pop = " ";
+        Raspbian = " ";
+        Redhat = " ";
+        Ubuntu = " ";
         Windows = "󰍲 ";
       };
     };
@@ -176,8 +205,32 @@
 
   programs.bat = {
     enable = true;
-    config.theme = "Nord";
+    themes = {
+      "Catppuccin Latte" = {
+        src = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "bat";
+          rev = "main";
+          hash = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
+        };
+        file = "themes/Catppuccin Latte.tmTheme";
+      };
+      "Catppuccin Mocha" = {
+        src = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "bat";
+          rev = "main";
+          hash = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
+        };
+        file = "themes/Catppuccin Mocha.tmTheme";
+      };
+    };
+    config = {
+      theme-light = "Catppuccin Latte";
+      theme-dark = "Catppuccin Mocha";
+    };
   };
+
   programs.git = {
     enable = true;
     ignores = [ ".DS_Store" ];
@@ -225,7 +278,7 @@
 
     settings = {
       # --- Visuals & Theme ---
-      theme = "Nord"; # Ghostty has built-in support for this
+      theme = "light:Catppuccin Latte,dark:Catppuccin Mocha";
       background-opacity = 0.76;
       background-blur = 20;
 
@@ -253,233 +306,251 @@
   };
 
   programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    withRuby = false;
-    withPython3 = false;
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      withRuby = false;
+      withPython3 = false;
 
-    plugins = with pkgs.vimPlugins; [
-      # Visuals & UI (Matching your repo)
-      nord-nvim
-      alpha-nvim
-      bufferline-nvim
-      nvim-colorizer-lua
-      lualine-nvim
-      nvim-web-devicons
-      nvim-tree-lua
-      which-key-nvim
+      plugins = with pkgs.vimPlugins; [
+        # Visuals & UI
+        catppuccin-nvim
+        alpha-nvim
+        bufferline-nvim
+        nvim-colorizer-lua
+        lualine-nvim
+        nvim-web-devicons
+        nvim-tree-lua
+        which-key-nvim
 
-      # Editing & Git
-      comment-nvim
-      nvim-autopairs
-      nvim-surround
-      gitsigns-nvim
+        # Editing & Git
+        comment-nvim
+        nvim-autopairs
+        nvim-surround
+        gitsigns-nvim
 
-      # Navigation
-      telescope-nvim
-      plenary-nvim
+        # Navigation
+        telescope-nvim
+        plenary-nvim
 
-      # PowerShell, Syntax & LSP Ecosystem
-      nvim-treesitter.withAllGrammars
-      nvim-lspconfig
-      nvim-cmp
-      cmp-nvim-lsp
-      luasnip
-    ];
+        # Syntax & LSP Ecosystem
+        nvim-treesitter.withAllGrammars
+        nvim-lspconfig
+        nvim-cmp
+        cmp-nvim-lsp
+        luasnip
+      ];
 
-    initLua = ''
-      ---------------------------------------------------------------------------
-      -- CORE OPTIONS (from your repo)
-      ---------------------------------------------------------------------------
-      vim.g.mapleader = " "
-      vim.opt.number = true
-      vim.opt.relativenumber = true
-      vim.opt.clipboard = "unnamedplus"
-      vim.opt.shiftwidth = 4
-      vim.opt.expandtab = true
-      vim.opt.termguicolors = true
-      vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true })
+      initLua = ''
+        ---------------------------------------------------------------------------
+        -- CORE OPTIONS
+        ---------------------------------------------------------------------------
+        vim.g.mapleader = " "
+        vim.opt.number = true
+        vim.opt.relativenumber = true
+        vim.opt.clipboard = "unnamedplus"
+        vim.opt.shiftwidth = 4
+        vim.opt.expandtab = true
+        vim.opt.termguicolors = true
+        vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true })
 
-      ---------------------------------------------------------------------------
-      -- PLUGIN CONFIGS (Exact logic from aboog/dotfiles)
-      ---------------------------------------------------------------------------
+        ---------------------------------------------------------------------------
+        -- COLORSCHEME (must run before bufferline reads its highlight groups)
+        ---------------------------------------------------------------------------
+        require("catppuccin").setup({
+          flavour = "auto",
+          background = { light = "latte", dark = "mocha" },
+          integrations = {
+            alpha = true,
+            cmp = true,
+            gitsigns = true,
+            nvimtree = true,
+            telescope = true,
+            treesitter = true,
+            which_key = true,
+          },
+        })
+        vim.cmd.colorscheme "catppuccin"
 
-      -- Alpha Dashboard (ASCII Art from your repo)
-      local alpha = require("alpha")
-      local dashboard = require("alpha.themes.dashboard")
-      dashboard.section.header.val = {
-          [[                               __                ]],
-          [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-          [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-          [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-          [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-          [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-      }
-      alpha.setup(dashboard.opts)
+        -- Re-apply when the terminal reports an appearance change.
+        -- Uncomment only if live toggling doesn't already work.
+        -- vim.api.nvim_create_autocmd("OptionSet", {
+        --   pattern = "background",
+        --   callback = function() vim.cmd.colorscheme "catppuccin" end,
+        -- })
 
-      -- Lualine (Rounded style from your repo)
-      require('lualine').setup {
-        options = {
-          theme = 'nord',
-          section_separators = { left = '', right = '' },
-          component_separators = { left = '', right = '' }
+        ---------------------------------------------------------------------------
+        -- PLUGIN CONFIGS
+        ---------------------------------------------------------------------------
+
+        -- Alpha Dashboard
+        local alpha = require("alpha")
+        local dashboard = require("alpha.themes.dashboard")
+        dashboard.section.header.val = {
+            [[                               __                ]],
+            [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+            [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+            [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+            [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+            [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
         }
-      }
+        alpha.setup(dashboard.opts)
 
-      -- Bufferline (Slant style from your repo)
-      require("bufferline").setup {
-        options = {
-          mode = "buffers",
-          separator_style = "slant",
-          always_show_bufferline = true,
-          offsets = {{ filetype = "NvimTree", text = "File Explorer", text_align = "left", separator = true }},
+        -- Lualine ('auto' follows the active colorscheme)
+        require('lualine').setup {
+          options = {
+            theme = 'auto',
+            section_separators = { left = ''', right = ''' },
+            component_separators = { left = ''', right = ''' }
+          }
         }
-      }
 
-      -- Which-Key (Updated to new spec to fix warnings)
-      local wk = require("which-key")
-      wk.add({
-        { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
-        { "<leader>f", group = "File" },
-        { "<leader>p", group = "Project" },
-      })
+        -- Bufferline
+        require("bufferline").setup {
+          options = {
+            mode = "buffers",
+            separator_style = "slant",
+            always_show_bufferline = true,
+            offsets = {{ filetype = "NvimTree", text = "File Explorer", text_align = "left", separator = true }},
+          },
+          highlights = require("catppuccin.special.bufferline").get_theme(),
+        }
 
-      -- Nvim-Tree & Telescope
-      require("nvim-tree").setup({})
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
+        -- Which-Key
+        local wk = require("which-key")
+        wk.add({
+          { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+          { "<leader>f", group = "File" },
+          { "<leader>p", group = "Project" },
+        })
 
-      -- Other Plugin Initializations
-      require('colorizer').setup()
-      require('Comment').setup()
-      require('gitsigns').setup()
-      require('nvim-autopairs').setup{}
-      require('nvim-surround').setup{}
+        -- Nvim-Tree & Telescope
+        require("nvim-tree").setup({})
+        local builtin = require('telescope.builtin')
+        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
 
-      ---------------------------------------------------------------------------
-      -- POWERSHELL & AUTOCOMPLETE (Fixed for LSP Error)
-      ---------------------------------------------------------------------------
-      local cmp = require('cmp')
-      cmp.setup({
-        snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
-        mapping = cmp.mapping.preset.insert({
-                -- Navigation
-                ['<C-j>'] = cmp.mapping.select_next_item(),
-                ['<C-k>'] = cmp.mapping.select_prev_item(),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
+        -- Other Plugin Initializations
+        require('colorizer').setup()
+        require('Comment').setup()
+        require('gitsigns').setup()
+        require('nvim-autopairs').setup{}
+        require('nvim-surround').setup{}
 
-                -- TAB TO CONFIRM (Replaces Enter)
-                ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-
-                -- Allow Enter to just create a new line instead of picking a suggestion
-                ['<CR>'] = cmp.mapping({
-                  i = function(fallback)
-                    if cmp.visible() then
-                      fallback() -- Just insert the newline
-                    else
-                      fallback()
-                    end
-                  end,
+        ---------------------------------------------------------------------------
+        -- AUTOCOMPLETE
+        ---------------------------------------------------------------------------
+        local cmp = require('cmp')
+        cmp.setup({
+          snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
+          mapping = cmp.mapping.preset.insert({
+                  ['<C-j>'] = cmp.mapping.select_next_item(),
+                  ['<C-k>'] = cmp.mapping.select_prev_item(),
+                  ['<C-Space>'] = cmp.mapping.complete(),
+                  ['<C-e>'] = cmp.mapping.abort(),
+                  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                  ['<CR>'] = cmp.mapping({
+                    i = function(fallback) fallback() end,
+                  }),
                 }),
-              }),
-        sources = { { name = 'nvim_lsp' } }
-      })
+          sources = { { name = 'nvim_lsp' } }
+        })
 
-      -- FIXED: Explicitly define the command for PowerShell LSP
-      require('lspconfig').powershell_es.setup{
-        bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services", -- Standard fallback
-        shell = "pwsh", -- Ensures it uses the modern PowerShell binary
-      }
+        ---------------------------------------------------------------------------
+        -- POWERSHELL LSP -- DISABLED
+        -- powershell-editor-services was never actually installed (bundle_path
+        -- pointed at a mason dir that doesn't exist), so the client exited 1 on
+        -- every startup. Re-enable once the bundle is packaged declaratively,
+        -- and port to vim.lsp.config/vim.lsp.enable at the same time.
+        ---------------------------------------------------------------------------
+        -- require('lspconfig').powershell_es.setup{
+        --   bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+        --   shell = "pwsh",
+        -- }
+      '';
+    };
 
-      -- Final Visuals
-      vim.cmd[[colorscheme nord]]
-    '';
-  };
+    programs.tmux = {
+      enable = true;
+      shell = "${pkgs.zsh}/bin/zsh"; # Uses the zsh managed by Nix
+      terminal = "screen-256color";
+      prefix = "C-a";
+      keyMode = "vi";
+      mouse = true;
+      baseIndex = 1;
+      escapeTime = 0;
 
-  programs.tmux = {
+      # Translations of your custom keybindings and settings
+      extraConfig = ''
+        # Split panes using | and -
+        unbind %
+        bind | split-window -h
+        unbind '"'
+        bind - split-window -v
+
+        # Pane resizing
+        bind -r j resize-pane -D 5
+        bind -r k resize-pane -U 5
+        bind -r l resize-pane -R 5
+        bind -r h resize-pane -L 5
+        bind -r m resize-pane -Z
+
+        # Vi copy mode improvements
+        bind-key -T copy-mode-vi 'v' send -X begin-selection
+        bind-key -T copy-mode-vi 'y' send -X copy-selection
+        unbind -T copy-mode-vi MouseDragEnd1Pane
+
+        # Custom kill session binding
+        unbind q
+        bind q kill-session
+
+        set -g default-command "${pkgs.zsh}/bin/zsh --login"
+        set -ag terminal-overrides ",xterm-256color:RGB"
+      '';
+
+      # Managing your plugins natively through Nix
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        vim-tmux-navigator # for navigating panes and vim/nvim with Ctrl-hjkl
+        {
+          plugin = nord;
+          extraConfig = ''
+            # Fix: Ensure the status bar and panes don't force a solid background
+            # that clashes with Ghostty's opacity
+            set -g window-style 'bg=default'
+            set -g window-active-style 'bg=default'
+
+            # Adjusting Nord status bar to be more transparent
+            set -g status-style bg=default
+          '';
+        }
+        {
+          plugin = resurrect;
+          extraConfig = "set -g @resurrect-capture-pane-contents 'on'";
+        }
+        {
+          plugin = continuum;
+          extraConfig = "set -g @continuum-restore 'on'";
+        }
+      ];
+    };
+
+    programs.ssh = {
     enable = true;
-    shell = "${pkgs.zsh}/bin/zsh"; # Uses the zsh managed by Nix
-    terminal = "screen-256color";
-    prefix = "C-a";
-    keyMode = "vi";
-    mouse = true;
-    baseIndex = 1;
-    escapeTime = 0;
-
-    # Translations of your custom keybindings and settings
-    extraConfig = ''
-      # Split panes using | and -
-      unbind %
-      bind | split-window -h
-      unbind '"'
-      bind - split-window -v
-
-      # Pane resizing
-      bind -r j resize-pane -D 5
-      bind -r k resize-pane -U 5
-      bind -r l resize-pane -R 5
-      bind -r h resize-pane -L 5
-      bind -r m resize-pane -Z
-
-      # Vi copy mode improvements
-      bind-key -T copy-mode-vi 'v' send -X begin-selection
-      bind-key -T copy-mode-vi 'y' send -X copy-selection
-      unbind -T copy-mode-vi MouseDragEnd1Pane
-
-      # Custom kill session binding
-      unbind q
-      bind q kill-session
-
-      set -g default-command "${pkgs.zsh}/bin/zsh --login"
-      set -ag terminal-overrides ",xterm-256color:RGB"
-    '';
-
-    # Managing your plugins natively through Nix
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      vim-tmux-navigator # for navigating panes and vim/nvim with Ctrl-hjkl
-      {
-        plugin = nord;
-        extraConfig = ''
-          # Fix: Ensure the status bar and panes don't force a solid background
-          # that clashes with Ghostty's opacity
-          set -g window-style 'bg=default'
-          set -g window-active-style 'bg=default'
-
-          # Adjusting Nord status bar to be more transparent
-          set -g status-style bg=default
-        '';
-      }
-      {
-        plugin = resurrect;
-        extraConfig = "set -g @resurrect-capture-pane-contents 'on'";
-      }
-      {
-        plugin = continuum;
-        extraConfig = "set -g @continuum-restore 'on'";
-      }
-    ];
-  };
-
-  programs.ssh = {
-  enable = true;
-  enableDefaultConfig = false;
-  includes = [ "~/.orbstack/ssh/config" ];
-  settings = {
-    "ssh.dev.azure.com" = {
-      Host = "ssh.dev.azure.com";
-      User = "git";
-      IdentityFile = "~/.ssh/id_rsa_devops.pub";
-    };
-    "*" = {
-      IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+    enableDefaultConfig = false;
+    includes = [ "~/.orbstack/ssh/config" ];
+    settings = {
+      "ssh.dev.azure.com" = {
+        Host = "ssh.dev.azure.com";
+        User = "git";
+        IdentityFile = "~/.ssh/id_rsa_devops.pub";
+      };
+      "*" = {
+        IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+      };
     };
   };
-};
 
   home.file.".ssh/allowed_signers".text = ''
     athiraiyan.kugaseelan@outlook.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/2YZZdeXI6wpAJgQI5keazophEGGcLQLQcFlUKBSzR
@@ -487,10 +558,24 @@
 
   home.file.".config/fastfetch/config.jsonc".source = ./dotfiles/.config/fastfetch/config.jsonc;
   home.file.".config/btop/btop.conf".text = ''
-    color_theme = "nord"
+    color_theme = "tty"
     theme_background = False
     truecolor = True
     vim_keys = True
   '';
+
+  home.file.".warp/themes/catppuccin_latte.yml".source = "${pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "warp";
+    rev = "main";
+    hash = "sha256-ypzSeSWT2XfdjfdeE/lLdiRgRmxewAqiWhGp6jjF7hE=";
+  }}/themes/catppuccin_latte.yml";
+
+  home.file.".warp/themes/catppuccin_mocha.yml".source = "${pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "warp";
+    rev = "main";
+    hash = "sha256-ypzSeSWT2XfdjfdeE/lLdiRgRmxewAqiWhGp6jjF7hE=";
+  }}/themes/catppuccin_mocha.yml";
 
 }
