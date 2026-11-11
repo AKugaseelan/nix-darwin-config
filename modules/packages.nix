@@ -15,6 +15,7 @@
         nixd
         opentofu
         powershell
+        proton-cli
         rar
     ];
 }

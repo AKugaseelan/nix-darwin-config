@@ -1,4 +1,10 @@
 { config, pkgs, lib, ... }:
+let
+protonSshSign = pkgs.writeShellScript "proton-ssh-sign" ''
+    export SSH_AUTH_SOCK="$HOME/.ssh/proton-pass-ssh-agent.sock"
+    exec ${pkgs.openssh}/bin/ssh-keygen "$@"
+'';
+in
 {
     programs.git = {
         enable = true;
@@ -8,7 +14,7 @@
         user.email = "athiraiyan.kugaseelan@outlook.com";
         init.defaultBranch = "main";
         gpg.format = "ssh";
-        "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        gpg.ssh.program = "${protonSshSign}";
         "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
         };
         signing = {
@@ -28,7 +34,7 @@
             IdentityFile = "~/.ssh/id_rsa_devops.pub";
         };
         "*" = {
-            IdentityAgent = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+            IdentityAgent = "~/.ssh/proton-pass-ssh-agent.sock";
         };
         };
     };
