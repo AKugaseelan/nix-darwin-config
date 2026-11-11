@@ -66,17 +66,11 @@
               "Fido2-Manage"
               "Floorp"
               "Ghostty"
+              "Iina"
               "Insomnia"
               "Intune-Company-Portal"
               "Kap"
               "Logitech-g-hub"
-              "Microsoft-Auto-Update"
-              "Microsoft-Edge"
-              "Microsoft-Excel"
-              "Microsoft-Outlook"
-              "Microsoft-Powerpoint"
-              "Microsoft-Teams"
-              "Microsoft-Word"
               "Nextcloud"
               "Notion"
               "Obsidian"
@@ -84,6 +78,8 @@
               "Openvpn-Connect"
               "OrbStack"
               "private-internet-access"
+              "proton-mail-bridge"
+              "proton-pass"
               "raycast"
               "Shottr"
               "Stats"
@@ -95,6 +91,7 @@
               "Threema@beta"
               "Visual-Studio-Code"
               "VLC"
+              "Waterfox"
               "Warp"
             ];
             #masApps = {
@@ -195,6 +192,10 @@
               NSAutomaticSpellingCorrectionEnabled = false;
               NSNavPanelExpandedStateForSaveMode = true;
               NSNavPanelExpandedStateForSaveMode2 = true;
+            };
+            CustomUserPreferences."com.apple.desktopservices" = {
+              DSDontWriteNetworkStores = true;
+              DSDontWriteUSBStores = true;
             };
             screencapture.location = "~/Pictures/screenshots";
             screensaver.askForPasswordDelay = 10;
