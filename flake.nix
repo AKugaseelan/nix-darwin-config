@@ -71,6 +71,7 @@
               "Intune-Company-Portal"
               "Kap"
               "Logitech-g-hub"
+              "Microsoft-Teams"
               "Nextcloud"
               "Notion"
               "Obsidian"
