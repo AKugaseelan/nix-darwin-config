@@ -1,21 +1,27 @@
-{ config, pkgs, lib, ... }:
 {
-    home.packages = with pkgs; [
-        _1password-cli
-        ansible
-        ansible-lint
-        azure-cli
-        btop
-        devcontainer
-        kubeseal
-        lazydocker
-        lazygit
-        mas
-        nil
-        nixd
-        opentofu
-        powershell
-        proton-cli
-        rar
-    ];
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+    _1password-cli
+    ansible
+    ansible-lint
+    azure-cli
+    btop
+    claude-code
+    devcontainer
+    kubeseal
+    lazydocker
+    lazygit
+    mas
+    nil
+    nixd
+    opentofu
+    powershell
+    proton-cli
+    rar
+  ];
 }
