@@ -116,11 +116,6 @@
           # Set default user
           system.primaryUser = "aboog";
 
-          # Enable Rosetta
-          nix.extraOptions = ''
-            	extra-platforms = x86_64-darwin aarch64-darwin
-          '';
-
           # Necessary for using flakes on this system.
           nix.settings.experimental-features = "nix-command flakes";
 
@@ -224,7 +219,7 @@
           {
             nix-homebrew = {
               enable = true;
-              enableRosetta = true;
+              enableRosetta = false;
               user = "aboog";
             };
           }
