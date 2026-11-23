@@ -23,5 +23,6 @@
     powershell
     proton-cli
     rar
+    uv
   ];
 }
