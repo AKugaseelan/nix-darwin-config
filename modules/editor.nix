@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.neovim = {
     enable = true;
@@ -32,6 +37,7 @@
       nixfmt
       prettier
       # tofu_fmt expects `tofu` on PATH -> comes from your packages.nix
+
     ];
 
     plugins = with pkgs.vimPlugins; [
@@ -70,18 +76,22 @@
       cmp_luasnip
       friendly-snippets
       lspkind-nvim
+
+      # Claude-code integration
+      claudecode-nvim
+      snacks-nvim
+
     ];
 
     # Nix hands the PSES store path to Lua; the rest lives in ./nvim/*.lua.
-    initLua =
-      ''
-        vim.g.pses_bundle_path = "${pkgs.powershell-editor-services}/lib/powershell-editor-services"
-      ''
-      + lib.concatMapStringsSep "\n" builtins.readFile [
-        ./nvim/options.lua
-        ./nvim/keymaps.lua
-        ./nvim/plugins.lua
-        ./nvim/lsp.lua
-      ];
+    initLua = ''
+      vim.g.pses_bundle_path = "${pkgs.powershell-editor-services}/lib/powershell-editor-services"
+    ''
+    + lib.concatMapStringsSep "\n" builtins.readFile [
+      ./nvim/options.lua
+      ./nvim/keymaps.lua
+      ./nvim/plugins.lua
+      ./nvim/lsp.lua
+    ];
   };
 }
