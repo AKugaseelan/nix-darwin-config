@@ -62,6 +62,7 @@
       telescope-nvim
       telescope-fzf-native-nvim
       plenary-nvim
+      vim-tmux-navigator # Ctrl-hjkl across nvim splits and tmux panes
 
       # Syntax & LSP
       nvim-treesitter.withAllGrammars
